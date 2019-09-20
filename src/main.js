@@ -7,8 +7,8 @@ import '@/styles/index.less'
 
 import {
   ValidationProvider,
-  extend,
-  ValidationObserver
+  ValidationObserver,
+  extend
 } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules' // 加载所有的验证规则
 import zhCN from 'vee-validate/dist/locale/zh_CN'

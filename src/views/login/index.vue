@@ -2,17 +2,25 @@
   <div class="login">
     <van-nav-bar title="标题" />
     <ValidationObserver tag="form" ref="form">
-      <ValidationProvider rules="required" v-slot="{ errors }" tag="div">
-        <van-field v-model="user.mobile" placeholder="请输入手机号" label="手机号" rules="required" />
+      <ValidationProvider rules="required|phone" v-slot="{ errors }" tag="div" name="手机号">
+        <van-field
+          v-model="user.mobile"
+          placeholder="请输入手机号"
+          label="手机号"
+          required
+          clearable
+          :error-message="errors[0]"
+        />
         <span id="error">{{ errors[0] }}</span>
       </ValidationProvider>
-      <ValidationProvider rules="required" v-slot="{ errors }" tag="div">
+      <ValidationProvider rules="required" v-slot="{ errors }" tag="div" name="验证码">
         <van-field
           v-model="user.code"
           placeholder="请输入验证码"
           label="验证码"
           type="password"
-          rules="required"
+          required
+          :error-message="errors[0]"
         />
         <span id="error">{{ errors[0] }}</span>
       </ValidationProvider>
@@ -22,13 +30,13 @@
     <van-cell-group></van-cell-group>-->
 
     <div class="login-wrap">
-      <van-button type="info" :loading="isLoginLoading">登录</van-button>
+      <van-button type="info" :loading="isLoginLoading" loading-text="加载中..." @click="onLogin">登录</van-button>
     </div>
   </div>
 </template>
 
 <script>
-import { login } from '@api/user'
+import { login } from '@/api/user'
 export default {
   name: 'LoginIndex',
   data () {
@@ -42,7 +50,7 @@ export default {
   },
 
   methods: {
-    async getLogin () {
+    async onLogin () {
       try {
         // 表单验证
         const isValid = await this.$refs.form.validate()
