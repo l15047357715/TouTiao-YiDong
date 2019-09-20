@@ -6,9 +6,9 @@ import store from './store'
 import '@/styles/index.less'
 
 import {
-  ValidationProvider,
-  ValidationObserver,
-  extend
+  ValidationProvider, // 包裹多个 ValidationObserver 验证组件
+  ValidationObserver, // 包裹要验证的表单元素
+  extend // 扩展自定义验证规则
 } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules' // 加载所有的验证规则
 import zhCN from 'vee-validate/dist/locale/zh_CN'
