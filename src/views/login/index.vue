@@ -37,6 +37,7 @@
 
 <script>
 import { login } from '@/api/user'
+
 export default {
   name: 'LoginIndex',
   data () {
@@ -52,25 +53,20 @@ export default {
   methods: {
     async onLogin () {
       try {
-        // 表单验证
         const isValid = await this.$refs.form.validate()
-
-        // 验证失败，则什么都不做
         if (!isValid) {
           return
         }
         this.isLoginLoading = true
-        // 验证通过，提交表单
         const { data } = await login(this.user)
 
-        console.log(data)
+        this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
       } catch (err) {
         if (err.response && err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
         }
       }
-      // 无论登录成功与否，都停止 loading
       this.isLoginLoading = false
     }
   }
