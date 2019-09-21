@@ -34,8 +34,6 @@ export default {
   },
   computed: {
     currentChannel () {
-      // active 是动态的，active 改变也就意味着 currentChannel 也改变了
-
       return this.channels[this.active]
     }
   },
@@ -43,17 +41,15 @@ export default {
     async loadAllChannels () {
       const { data } = await getAllChannels()
       console.log(data)
-      // 为每一个频道初始化一个成员 articles 用来存储该频道的文章列表
       data.data.channels.forEach(channel => {
-        channel.articles = [] // 频道的文章列表
-        channel.loading = false // 频道的上拉加载更多的 loading 状态
-        channel.finished = false // 频道的加载结束的状态
-        channel.timestamp = null // 用于获取下一页数据的时间戳（页码）
+        channel.articles = []
+        channel.loading = false
+        channel.finished = false
+        channel.timestamp = null
       })
       this.channels = data.data.channels
     },
     async onLoad () {
-      // 1. 请求加载文章列表
       const currentChannel = this.currentChannel
       const { data } = await getArticles({
         channelId: currentChannel.id,

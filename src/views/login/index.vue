@@ -37,6 +37,7 @@
 
 <script>
 import { login } from '@/api/user'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'LoginIndex',
@@ -51,6 +52,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('setUser'),
     async onLogin () {
       try {
         const isValid = await this.$refs.form.validate()
@@ -58,9 +60,11 @@ export default {
           return
         }
         this.isLoginLoading = true
-        const { data } = await login(this.user)
 
-        this.$store.commit('setUser', data.data)
+        const { data } = await login(this.user)
+        this.setUser(data.data)
+        // this.$store.commit('setUser', data.data)
+
         this.$toast.success('登录成功')
       } catch (err) {
         if (err.response && err.response.status === 400) {
