@@ -25,8 +25,18 @@ import {
   Tabs,
   List,
   Cell,
-  CellGroup
+  CellGroup,
+  PullRefresh,
+  Grid,
+  GridItem,
+  Image,
+  Icon,
+  Lazyload,
+  Popup
 } from 'vant'
+
+import { relativeTime } from './utils/date'
+Vue.filter('relativeTime', relativeTime)
 
 Vue.use(NavBar)
   .use(Field)
@@ -40,6 +50,13 @@ Vue.use(NavBar)
   .use(List)
   .use(Cell)
   .use(CellGroup)
+  .use(PullRefresh)
+  .use(Grid)
+  .use(GridItem)
+  .use(Image)
+  .use(Icon)
+  .use(Lazyload)
+  .use(Popup)
 
 for (let rule in rules) {
   extend(rule, {

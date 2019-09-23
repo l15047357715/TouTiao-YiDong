@@ -16,6 +16,7 @@ request.defaults.transformResponse = [function (data) {
 }]
 
 request.interceptors.request.use(function (config) {
+  console.log(config)
   const { user } = store.state
   if (user) {
     config.headers.Authorization = `Bearer ${user.token}`

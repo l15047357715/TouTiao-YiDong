@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       user: {
-        mobile: '15201230123',
+        mobile: '15800000000',
         code: '246810'
       },
       isLoginLoading: false
@@ -52,7 +52,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('setUser'),
+    ...mapMutations(['setUser']),
     async onLogin () {
       try {
         const isValid = await this.$refs.form.validate()
