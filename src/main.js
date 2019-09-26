@@ -32,7 +32,8 @@ import {
   Image,
   Icon,
   Lazyload,
-  Popup
+  Popup,
+  Search
 } from 'vant'
 
 import { relativeTime } from './utils/date'
@@ -57,6 +58,7 @@ Vue.use(NavBar)
   .use(Icon)
   .use(Lazyload)
   .use(Popup)
+  .use(Search)
 
 for (let rule in rules) {
   extend(rule, {
