@@ -6,6 +6,7 @@ import Tabbar from '@/views/tabbar'
 import Home from '@/views/home'
 import Search from '@/views/search'
 import SearchResult from '@/views/search-result'
+import Article from '@/views/article'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,18 @@ const router = new VueRouter({
     path: '/login',
     component: Login
   }, {
+    name: 'search',
+    path: '/search',
+    component: Search
+  }, {
+    name: 'search-result',
+    path: '/search/:q',
+    component: SearchResult
+  }, {
+    name: 'article',
+    path: '/article/:articleId',
+    component: Article
+  }, {
     path: '/',
     component: Tabbar,
     children: [
@@ -25,14 +38,6 @@ const router = new VueRouter({
         component: Home
       }
     ]
-  }, {
-    name: 'search',
-    path: '/search',
-    component: Search
-  }, {
-    name: 'search-result',
-    path: '/search/:q',
-    component: SearchResult
   }]
 })
 

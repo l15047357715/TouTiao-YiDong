@@ -66,6 +66,9 @@ export default {
         // this.$store.commit('setUser', data.data)
 
         this.$toast.success('登录成功')
+        this.$router.push({
+          name: 'home'
+        })
       } catch (err) {
         if (err.response && err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')

@@ -46,7 +46,7 @@
           slot="right-icon"
           name="close"
           v-show="isDeleteShow"
-          @click="searchHistory.splice(index, 1)"
+          @click.stop="searchHistory.splice(index, 1)"
           style="line-height:inherit;"
         />
       </van-cell>
@@ -66,7 +66,7 @@ export default {
     return {
       searchText: '',
       suggest: [],
-      searchHistory: getItem('search-histories') || [], // 存储历史记录
+      searchHistory: getItem('search-history') || [], // 存储历史记录
       isDeleteShow: false
     }
   },
@@ -102,12 +102,13 @@ export default {
       searchHistory.unshift(q)
 
       setItem('search-history', searchHistory)
-      // this.$router.push({
-      //   name: 'search-result',
-      //   params: {
-      //     q
-      //   }
-      // })
+
+      this.$router.push({
+        name: 'search-result',
+        params: {
+          q
+        }
+      })
     },
     onCancel () {},
     highLight (str) {

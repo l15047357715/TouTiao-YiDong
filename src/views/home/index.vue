@@ -24,6 +24,12 @@
               v-for="article in channel.articles"
               :key="article.art_id.toString()"
               :title="article.title"
+              @click="$router.push({
+                name: 'article',
+                params: {
+                  articleId: article.art_id.toString()
+                }
+              })"
             >
               <div slot="label">
                 <van-grid :column-num="3">
@@ -150,7 +156,6 @@ export default {
     // 所有频道
     async loadAllChannels () {
       const { data } = await getAllChannels()
-      console.log(data)
       const extend = data.data.channels
 
       extend.forEach(one => {
