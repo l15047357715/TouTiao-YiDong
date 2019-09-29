@@ -1,5 +1,10 @@
 <template>
   <div class="article-comments">
+    <!-- 关闭按钮 -->
+    <van-nav-bar :title="totalReplyCount + '条回复'">
+      <van-icon slot="left" name="cross" @click="$emit('close')" />
+    </van-nav-bar>
+    <!-- /关闭按钮 -->
     <!-- 评论列表 -->
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
       <van-cell v-for="comment in list" :key="comment.com_id.toString()">
@@ -31,25 +36,16 @@
       </van-field>
     </van-cell-group>
     <!-- /发布评论 -->
-
-    <!-- 回复列表 -->
-    <van-popup v-model="isReplyShow" position="bottom" :style="{ height: '95%' }" round>
-      <reply-list :comment="currentComment" />
-    </van-popup>
-    <!-- 回复列表 -->
   </div>
 </template>
 
 <script>
 import { getComments, addComment } from '@/api/comment'
-import ReplyList from './reply-list'
 
 export default {
   name: 'ArticleComment',
   props: ['articleId', 'comment'],
-  components: {
-    ReplyList
-  },
+
   data () {
     return {
       list: [], // 评论列表
@@ -58,9 +54,10 @@ export default {
       offset: null,
       limit: 10,
       commentText: '', // 用户输入的评论内容
+
       isReplyShow: false,
-      totalReplyCount: 0,
-      currentComment: {} // 当前点击回复的评论
+      currentComment: {}, // 当前点击回复的评论
+      totalReplyCount: 0 // 总回复数量
     }
   },
 
@@ -73,9 +70,12 @@ export default {
         offset: this.offset,
         limit: this.limit
       })
-
+      console.log(data)
       // 2. 将数据添加到数组中
       this.list.push(...data.data.results)
+
+      // 更新总回复数量
+      this.totalReplyCount = data.data.total_count
 
       // 3. 将 loading 设置为 false
       this.loading = false
@@ -88,6 +88,8 @@ export default {
         // 4.2 如果后面没数据了，则将 finished 设置为 true
         this.finished = true
       }
+      // 更新总回复数量
+      this.totalReplyCount++
     },
 
     async onPublishComment () {

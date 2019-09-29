@@ -38,7 +38,7 @@
 
     <!-- 回复列表 -->
     <van-popup v-model="isReplyShow" position="bottom" :style="{ height: '95%' }" round>
-      <reply-list :comment="currentComment" :article-id="articleId" />
+      <reply-list :comment="currentComment" :article-id="articleId" @close="isReplyShow = false" />
     </van-popup>
     <!-- 回复列表 -->
   </div>

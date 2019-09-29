@@ -33,7 +33,10 @@ import {
   Icon,
   Lazyload,
   Popup,
-  Search
+  Search,
+  Dialog,
+  ActionSheet,
+  DatetimePicker
 } from 'vant'
 
 import { relativeTime } from './utils/date'
@@ -59,7 +62,9 @@ Vue.use(NavBar)
   .use(Lazyload)
   .use(Popup)
   .use(Search)
-
+  .use(Dialog)
+  .use(ActionSheet)
+  .use(DatetimePicker)
 for (let rule in rules) {
   extend(rule, {
     ...rules[rule], // add the rule
@@ -67,7 +72,7 @@ for (let rule in rules) {
   })
 }
 extend('phone', {
-  validate (value) {
+  validate(value) {
     return /^1\d{10}$/.test(value)
   },
   message: '必须是手机号'

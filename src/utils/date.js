@@ -8,3 +8,6 @@ dayjs.extend(rTime) // 配置使用相对时间插件
 export const relativeTime = time => {
   return dayjs().from(dayjs(time))
 }
+export const formatDate = date => {
+  return dayjs(date).format('YYYY-MM-DD')
+}
