@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import fastClick from 'fastclick'
+import 'amfe-flexible/index.js'
 
 import '@/styles/index.less'
 
@@ -41,6 +43,7 @@ import {
 
 import { relativeTime } from './utils/date'
 Vue.filter('relativeTime', relativeTime)
+fastClick.attach(document.body)
 
 Vue.use(NavBar)
   .use(Field)
@@ -72,7 +75,7 @@ for (let rule in rules) {
   })
 }
 extend('phone', {
-  validate(value) {
+  validate (value) {
     return /^1\d{10}$/.test(value)
   },
   message: '必须是手机号'

@@ -66,9 +66,12 @@ export default {
         // this.$store.commit('setUser', data.data)
 
         this.$toast.success('登录成功')
-        this.$router.push({
-          name: 'home'
-        })
+        // 登录成功，跳转到首页
+        const { redirect } = this.$route.query
+        this.$router.push(redirect || '/')
+        // this.$router.push({
+        //   name: 'home'
+        // })
       } catch (err) {
         if (err.response && err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
